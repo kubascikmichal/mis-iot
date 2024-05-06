@@ -68,18 +68,41 @@ void app_main(void)
     if (dev_cfg == NULL)
     {
         AP_STA *wifi = new AP_STA("Kubascik", "kubascik25", "Generator", "123456789");
+        HTTP_Server *server = new HTTP_Server(nvs);
+        server->init();
     }
+
     else
     {
-        AP_STA *wifi = new AP_STA("Kubascik", "kubascik25", "Generator", "123456789");
         uint32_t delay = atoi(cJSON_GetObjectItem(dev_cfg, "delay")->valuestring);
         char *api_key = cJSON_GetObjectItem(dev_cfg, "API_KEY")->valuestring;
-    }
-    HTTP_Server *server = new HTTP_Server(nvs);
-    server->init();
-    while (true)
-    {
-        vTaskDelay(10000 / portTICK_PERIOD_MS);
-        sendDataToThingy("J8WA1NS5ADC4FMED", rand() % 100, rand() % 100, rand() % 100);
+        char *SSID = cJSON_GetObjectItem(dev_cfg, "SSID")->valuestring;
+        char *PASSWORD = cJSON_GetObjectItem(dev_cfg, "PASSWORD")->valuestring;
+#define DEV1
+#ifdef DEV1
+        AP_STA *wifi = new AP_STA(SSID, PASSWORD, "DEV1", "123456789");
+#endif
+#ifdef DEV2
+        AP_STA *wifi = new AP_STA(SSID, PASSWORD, "DEV2", "123456789");
+#endif
+#ifdef DEV3
+        AP_STA *wifi = new AP_STA(SSID, PASSWORD, "DEV3", "123456789");
+#endif
+#ifdef DEV4
+        AP_STA *wifi = new AP_STA(SSID, PASSWORD, "DEV4", "123456789");
+#endif
+#ifdef DEV5
+        AP_STA *wifi = new AP_STA(SSID, PASSWORD, "DEV5", "123456789");
+#endif
+#ifdef DEV6
+        AP_STA *wifi = new AP_STA(SSID, PASSWORD, "DEV6", "123456789");
+#endif
+        HTTP_Server *server = new HTTP_Server(nvs);
+        server->init();
+        while (true)
+        {
+            vTaskDelay(delay*1000 / portTICK_PERIOD_MS);
+            sendDataToThingy(api_key, rand() % 100, rand() % 100, rand() % 100);
+        }
     }
 }
