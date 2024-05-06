@@ -1,5 +1,5 @@
 # Management information systems - IoT board for data measurement and sending to cloud
-Measurements of temperature, humidity and lighting.
+Measurements of temperature, humidity and lighting based on ESP32-S1 module.
 
 ## Configuration
 Configuration of device is by html page. Device is in AP_STA mode.
