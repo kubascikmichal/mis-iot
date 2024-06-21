@@ -35,7 +35,7 @@ void sendDataToThingy(const char *API_KEY, double temp, double hum, double lux)
         .method = HTTP_METHOD_GET,
     };
     esp_http_client_handle_t client = esp_http_client_init(&config);
-    esp_http_client_set_header(client, "Content-Type", "application/x-www-form-urlencoded");
+        
 
     esp_http_client_set_post_field(client, post_data, strlen(post_data));
 
